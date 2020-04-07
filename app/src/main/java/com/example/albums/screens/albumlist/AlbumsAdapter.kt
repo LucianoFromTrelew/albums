@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.albums.data.Album
 import com.example.albums.databinding.AlbumListItemBinding
 
-typealias AlbumsAdapterClickListener = (Album) -> Unit
-
-class AlbumsAdapter(private val clickListener: AlbumsAdapterClickListener) :
+class AlbumsAdapter(private val clickListener: ClickListener) :
     ListAdapter<Album, AlbumsAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,11 +24,11 @@ class AlbumsAdapter(private val clickListener: AlbumsAdapterClickListener) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(
             album: Album,
-            clickListener: AlbumsAdapterClickListener
+            clickListener: ClickListener
         ) {
             binding.album = album
             binding.root.setOnClickListener {
-                clickListener(album)
+                clickListener.onClick(album)
             }
             binding.executePendingBindings()
         }
@@ -54,4 +52,7 @@ class AlbumsAdapter(private val clickListener: AlbumsAdapterClickListener) :
         }
     }
 
+    class ClickListener(private val clickListener: (Album) -> Unit){
+        fun onClick(album: Album) = clickListener(album)
+    }
 }
