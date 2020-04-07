@@ -12,6 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import com.example.albums.utils.DataBindingIdlingResource
 import com.example.albums.utils.EspressoIdlingResource
+import com.example.albums.utils.getToolbarNavigationContentDescription
 import com.example.albums.utils.monitorActivity
 import org.junit.After
 import org.junit.Before
@@ -25,7 +26,7 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class ExampleInstrumentedTest {
+class AppNavigationTest {
     private val dataBindingIdlingResource = DataBindingIdlingResource()
 
     @Before
@@ -41,7 +42,7 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun clickAlbum_navigateToDetail() {
+    fun clickAlbum_navigateToDetail_andBack() {
         val activityScenario = ActivityScenario.launch(MainActivity::class.java)
         dataBindingIdlingResource.monitorActivity(activityScenario)
 
@@ -55,5 +56,8 @@ class ExampleInstrumentedTest {
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click())
         )
         onView(withId(R.id.album_detail_title)).check(matches(isDisplayed()))
+
+        onView(withContentDescription(activityScenario.getToolbarNavigationContentDescription())).perform(click())
+        onView(withId(R.id.album_list_title)).check(matches(isDisplayed()))
     }
 }
