@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.albums.data.Album
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.example.albums.databinding.FragmentAlbumListBinding
 
 /**
@@ -15,23 +16,23 @@ import com.example.albums.databinding.FragmentAlbumListBinding
  */
 class AlbumListFragment : Fragment() {
 
+    val viewModel: AlbumListViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val binding = FragmentAlbumListBinding.inflate(inflater)
 
         val adapter = AlbumsAdapter {
-            Toast.makeText(requireContext(), "Album ${it.id} clicked!", Toast.LENGTH_SHORT).show()
+            val action = AlbumListFragmentDirections.actionAlbumListFragmentToAlbumDetailFragment(it)
+            findNavController().navigate(action)
         }
-        val albums = mutableListOf<Album>()
-        repeat(100) {
-            albums.add(Album(it.toString(), "Album $it"))
-        }
-        adapter.submitList(albums)
         binding.albumListList.adapter = adapter
-        binding.albumListList.layoutManager = LinearLayoutManager(requireContext())
+
+        viewModel.albums.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
         return binding.root
     }
 

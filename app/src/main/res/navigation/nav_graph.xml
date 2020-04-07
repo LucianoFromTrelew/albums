@@ -8,6 +8,19 @@
     <fragment
         android:id="@+id/albumListFragment"
         android:name="com.example.albums.screens.albumlist.AlbumListFragment"
-        android:label="fragment_album_list"
-        tools:layout="@layout/fragment_album_list" />
+        android:label="Album list"
+        tools:layout="@layout/fragment_album_list" >
+        <action
+            android:id="@+id/action_albumListFragment_to_albumDetailFragment"
+            app:destination="@id/albumDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumDetailFragment"
+        android:name="com.example.albums.screens.albumdetail.AlbumDetailFragment"
+        android:label="Selected album"
+        tools:layout="@layout/fragment_album_detail" >
+        <argument
+            android:name="selectedAlbum"
+            app:argType="com.example.albums.data.Album" />
+    </fragment>
 </navigation>
