@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [AppModule::class, SubcomponentsModule::class, ViewModelModule::class])
+@Component(modules = [AppModule::class, SubcomponentsModule::class, ViewModelModule::class, NetworkModule::class])
 interface AppComponent {
     @Component.Factory
     interface Factory {
