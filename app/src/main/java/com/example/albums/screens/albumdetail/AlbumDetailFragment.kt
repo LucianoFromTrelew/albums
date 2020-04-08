@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -23,7 +22,7 @@ class AlbumDetailFragment : Fragment() {
     val args by navArgs<AlbumDetailFragmentArgs>()
     val viewModel by viewModels<AlbumDetailViewModel>()
     val adapter: DataBindingAdapter<Photo> by lazy {
-        DataBindingAdapter<Photo>({ layoutInflater, parent, attachToRoot ->
+        DataBindingAdapter({ layoutInflater, parent, attachToRoot ->
             PhotoListItemBinding.inflate(
                 layoutInflater,
                 parent,
@@ -53,7 +52,8 @@ class AlbumDetailFragment : Fragment() {
         }
         viewModel.navigateToSelectedPhoto.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
-                val action = AlbumDetailFragmentDirections.actionAlbumDetailFragmentToPhotoDetailFragment(it)
+                val action =
+                    AlbumDetailFragmentDirections.actionAlbumDetailFragmentToPhotoDetailFragment(it)
                 findNavController().navigate(action)
             }
         }

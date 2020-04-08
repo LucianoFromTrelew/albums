@@ -46,18 +46,30 @@ class AppNavigationTest {
         val activityScenario = ActivityScenario.launch(MainActivity::class.java)
         dataBindingIdlingResource.monitorActivity(activityScenario)
 
-//        onView(withId(R.id.album_list_list)).perform(
-//            RecyclerViewActions.actionOnItem<RecyclerView.ViewHolder>(
-//                hasDescendant(withText("Album 0")), click()
-//            )
-//        )
-//        onView(withId(R.id.album_detail_title)).check(matches(withText("Album 0")))
+        // Navigate to AlbumDetail
         onView(withId(R.id.album_list_list)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click())
         )
         onView(withId(R.id.album_detail_title)).check(matches(isDisplayed()))
 
-        onView(withContentDescription(activityScenario.getToolbarNavigationContentDescription())).perform(click())
+        // Navigate to PhotoDetail
+        onView(withId(R.id.album_detail_photo_list)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click())
+        )
+        onView(withId(R.id.photo_detail_title)).check(matches(isDisplayed()))
+
+        // Go back to AlbumDetail
+        onView(withContentDescription(activityScenario.getToolbarNavigationContentDescription())).perform(
+            click()
+        )
+        onView(withId(R.id.album_detail_title)).check(matches(isDisplayed()))
+
+        // Go back to AlbumList
+        onView(withContentDescription(activityScenario.getToolbarNavigationContentDescription())).perform(
+            click()
+        )
         onView(withId(R.id.album_list_title)).check(matches(isDisplayed()))
+
+        activityScenario.close()
     }
 }
