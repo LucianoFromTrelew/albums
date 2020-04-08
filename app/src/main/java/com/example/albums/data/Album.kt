@@ -1,7 +1,9 @@
 package com.example.albums.data
 
 import android.os.Parcelable
+import com.example.albums.DataBindingAdapter
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Album(val id: String, val title: String): Parcelable
+data class Album(override val id: String, val title: String) : Parcelable, DataBindingAdapter.HasId {
+}

@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import com.example.albums.DataBindingAdapter
+import com.example.albums.data.Album
+import com.example.albums.databinding.AlbumListItemBinding
 import com.example.albums.databinding.FragmentAlbumListBinding
 
 /**
@@ -16,6 +19,22 @@ import com.example.albums.databinding.FragmentAlbumListBinding
 class AlbumListFragment : Fragment() {
 
     val viewModel: AlbumListViewModel by viewModels()
+    val adapter: DataBindingAdapter<Album> by lazy {
+        DataBindingAdapter({ layoutInflater, viewGroup, attachToRoot ->
+            AlbumListItemBinding.inflate(
+                layoutInflater,
+                viewGroup,
+                attachToRoot
+            )
+        }) { album: Album ->
+            val binding = this.binding as AlbumListItemBinding
+            binding.album = album
+            binding.root.setOnClickListener {
+                viewModel.onAlbumClick(album)
+            }
+            binding.executePendingBindings()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,18 +42,21 @@ class AlbumListFragment : Fragment() {
     ): View? {
         val binding = FragmentAlbumListBinding.inflate(inflater)
 
-        val adapter = AlbumsAdapter(AlbumsAdapter.ClickListener {
-            val action =
-                AlbumListFragmentDirections.actionAlbumListFragmentToAlbumDetailFragment(it)
-            findNavController().navigate(action)
-        })
         binding.albumListList.adapter = adapter
 
         viewModel.albums.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
-        return binding.root
-    }
+        viewModel.navigateToSelectedAlbum.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let {
+                val action =
+                    AlbumListFragmentDirections.actionAlbumListFragmentToAlbumDetailFragment(it)
+                findNavController().navigate(action)
+            }
+        }
 
+        return binding.root
+
+    }
 
 }
