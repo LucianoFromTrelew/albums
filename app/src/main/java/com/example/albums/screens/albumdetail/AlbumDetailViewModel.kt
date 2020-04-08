@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.albums.data.Photo
 import com.example.albums.utils.MyEvent
+import javax.inject.Inject
 
-class AlbumDetailViewModel : ViewModel() {
+class AlbumDetailViewModel @Inject constructor() : ViewModel() {
 
     private val _photos = MutableLiveData<List<Photo>>()
     val photos: LiveData<List<Photo>>

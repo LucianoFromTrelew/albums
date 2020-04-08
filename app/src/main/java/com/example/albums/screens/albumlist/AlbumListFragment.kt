@@ -1,25 +1,31 @@
 package com.example.albums.screens.albumlist
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.albums.DataBindingAdapter
 import com.example.albums.data.Album
 import com.example.albums.databinding.AlbumListItemBinding
 import com.example.albums.databinding.FragmentAlbumListBinding
+import com.example.albums.utils.appComponent
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  */
 class AlbumListFragment : Fragment() {
 
-    val viewModel: AlbumListViewModel by viewModels()
-    val adapter: DataBindingAdapter<Album> by lazy {
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel: AlbumListViewModel by viewModels { viewModelFactory }
+    private val adapter: DataBindingAdapter<Album> by lazy {
         DataBindingAdapter({ layoutInflater, viewGroup, attachToRoot ->
             AlbumListItemBinding.inflate(
                 layoutInflater,
@@ -34,6 +40,11 @@ class AlbumListFragment : Fragment() {
             }
             binding.executePendingBindings()
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        appComponent.albumListComponent().create().inject(this)
     }
 
     override fun onCreateView(
