@@ -10,10 +10,13 @@
     </data>
 
     <ImageView
+        android:id="@+id/photo_list_item_image"
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:adjustViewBounds="true"
+        android:clickable="true"
         android:contentDescription="@string/photo_list_item_image_content_description"
+        android:focusable="true"
         android:padding="2dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_foreground"
