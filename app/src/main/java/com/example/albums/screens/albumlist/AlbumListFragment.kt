@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.example.albums.DataBindingAdapter
-import com.example.albums.data.Album
+import com.example.albums.data.domain.Album
 import com.example.albums.databinding.AlbumListItemBinding
 import com.example.albums.databinding.FragmentAlbumListBinding
 import com.example.albums.utils.appComponent

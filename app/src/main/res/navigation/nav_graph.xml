@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_album_detail">
         <argument
             android:name="selectedAlbum"
-            app:argType="com.example.albums.data.Album" />
+            app:argType="com.example.albums.data.domain.Album" />
         <action
             android:id="@+id/action_albumDetailFragment_to_photoDetailFragment"
             app:destination="@id/photoDetailFragment" />
@@ -32,6 +32,6 @@
         android:label="Selected photo">
         <argument
             android:name="selectedPhoto"
-            app:argType="com.example.albums.data.Photo" />
+            app:argType="com.example.albums.data.domain.Photo" />
     </fragment>
 </navigation>

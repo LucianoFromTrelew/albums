@@ -1,4 +1,4 @@
-package com.example.albums.data
+package com.example.albums.data.domain
 
 import android.os.Parcelable
 import com.example.albums.DataBindingAdapter

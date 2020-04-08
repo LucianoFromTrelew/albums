@@ -1,30 +1,33 @@
 package com.example.albums.screens.albumlist
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.albums.data.Album
+import androidx.lifecycle.*
+import com.example.albums.data.Result
+import com.example.albums.data.Result.*
+import com.example.albums.data.domain.Album
+import com.example.albums.data.source.Repository
 import com.example.albums.utils.MyEvent
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class AlbumListViewModel @Inject constructor() : ViewModel() {
+class AlbumListViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private val _albums = MutableLiveData<List<Album>>()
-    val albums: LiveData<List<Album>>
-        get() = _albums
-
+    private val _albums = MutableLiveData<Result<List<Album>>>()
+    val albums = _albums.map { (it as? Success)?.data }
 
     private val _navigateToSelectedAlbum = MutableLiveData<MyEvent<Album>>()
     val navigateToSelectedAlbum: LiveData<MyEvent<Album>>
         get() = _navigateToSelectedAlbum
 
     init {
-        val data = mutableListOf<Album>()
-        repeat(100) {
-            data.add(Album(it.toString(), "Album $it"))
+        _albums.value = Loading
+        viewModelScope.launch {
+            try {
+                _albums.value = repository.getAlbums()
+            } catch (e: Exception) {
+                _albums.value = Error(e)
+            }
         }
-        _albums.value = data
     }
 
     fun onAlbumClick(album: Album) {

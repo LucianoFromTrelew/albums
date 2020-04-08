@@ -6,7 +6,7 @@
 
         <variable
             name="photo"
-            type="com.example.albums.data.Photo" />
+            type="com.example.albums.data.domain.Photo" />
     </data>
 
     <ImageView

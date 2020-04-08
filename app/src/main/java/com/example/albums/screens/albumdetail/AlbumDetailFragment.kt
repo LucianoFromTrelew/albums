@@ -12,7 +12,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.albums.DataBindingAdapter
-import com.example.albums.data.Photo
+import com.example.albums.data.domain.Photo
 import com.example.albums.databinding.FragmentAlbumDetailBinding
 import com.example.albums.databinding.PhotoListItemBinding
 import com.example.albums.utils.appComponent
@@ -47,7 +47,7 @@ class AlbumDetailFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        appComponent.albumDetailComponent().create().inject(this)
+        appComponent.albumDetailComponent().create(args.selectedAlbum.id).inject(this)
     }
 
     override fun onCreateView(

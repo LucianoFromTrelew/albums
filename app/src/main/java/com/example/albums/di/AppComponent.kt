@@ -1,7 +1,10 @@
 package com.example.albums.di
 
+import com.example.albums.data.source.DefaultRepository
+import com.example.albums.data.source.Repository
 import com.example.albums.screens.albumdetail.AlbumDetailComponent
 import com.example.albums.screens.albumlist.AlbumListComponent
+import dagger.Binds
 import dagger.Component
 import dagger.Module
 import javax.inject.Singleton
@@ -22,8 +25,10 @@ interface AppComponent {
 }
 
 @Module
-object AppModule {
-
+interface AppModule {
+    @Singleton
+    @Binds
+    fun bindRepository(repo: DefaultRepository): Repository
 }
 
 @Module(subcomponents = [AlbumListComponent::class])
