@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.albums.DataBindingAdapter
 import com.example.albums.data.Photo
@@ -52,8 +53,8 @@ class AlbumDetailFragment : Fragment() {
         }
         viewModel.navigateToSelectedPhoto.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {
-                Toast.makeText(requireContext(), "Photo [${it.id}] clicked", Toast.LENGTH_SHORT)
-                    .show()
+                val action = AlbumDetailFragmentDirections.actionAlbumDetailFragmentToPhotoDetailFragment(it)
+                findNavController().navigate(action)
             }
         }
 

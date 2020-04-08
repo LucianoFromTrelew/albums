@@ -6,5 +6,5 @@
     <string name="album_list_title">Album list</string>
     <string name="photo_list_item_image_content_description">Album photo</string>
     <string name="photo_detail_title">Photo detail</string>
-    <string name="photo_detail_image_content_description">Photo of an album</string>
+    <string name="photo_detail_image_content_description">Selected photo of an album</string>
 </resources>

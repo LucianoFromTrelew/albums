@@ -9,7 +9,7 @@
         android:id="@+id/albumListFragment"
         android:name="com.example.albums.screens.albumlist.AlbumListFragment"
         android:label="Album list"
-        tools:layout="@layout/fragment_album_list" >
+        tools:layout="@layout/fragment_album_list">
         <action
             android:id="@+id/action_albumListFragment_to_albumDetailFragment"
             app:destination="@id/albumDetailFragment" />
@@ -18,9 +18,20 @@
         android:id="@+id/albumDetailFragment"
         android:name="com.example.albums.screens.albumdetail.AlbumDetailFragment"
         android:label="Selected album"
-        tools:layout="@layout/fragment_album_detail" >
+        tools:layout="@layout/fragment_album_detail">
         <argument
             android:name="selectedAlbum"
             app:argType="com.example.albums.data.Album" />
+        <action
+            android:id="@+id/action_albumDetailFragment_to_photoDetailFragment"
+            app:destination="@id/photoDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoDetailFragment"
+        android:name="com.example.albums.screens.photodetail.PhotoDetailFragment"
+        android:label="Selected photo">
+        <argument
+            android:name="selectedPhoto"
+            app:argType="com.example.albums.data.Photo" />
     </fragment>
 </navigation>
