@@ -90,6 +90,10 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
 
+    // Glide
+    def glide_version = "4.8.0"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+
     // Unit tests
     testImplementation 'junit:junit:4.12'
     testImplementation "org.hamcrest:hamcrest-all:1.3"
