@@ -90,11 +90,9 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
 
-    // Glide
-    def glide_version = "4.11.0"
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
-
+    // Picasso
+    def picasso_version = "2.71828"
+    implementation "com.squareup.picasso:picasso:$picasso_version"
 
     // Unit tests
     testImplementation 'junit:junit:4.12'
