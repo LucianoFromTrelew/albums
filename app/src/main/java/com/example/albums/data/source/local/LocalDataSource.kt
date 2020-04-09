@@ -3,12 +3,9 @@ package com.example.albums.data.source.local
 import com.example.albums.data.domain.Album
 import com.example.albums.data.domain.Photo
 import com.example.albums.data.source.DataSource
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 
 class LocalDataSource constructor(
-    private val dao: MyDao,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dao: MyDao
 ) : DataSource {
     override suspend fun getAlbums(): List<Album> {
         return dao.getAlbums().map { it.toAlbum() }

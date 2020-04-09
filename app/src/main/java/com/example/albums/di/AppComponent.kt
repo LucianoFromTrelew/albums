@@ -10,8 +10,6 @@ import com.example.albums.data.source.remote.RemoteDataSource
 import com.example.albums.screens.albumdetail.AlbumDetailComponent
 import com.example.albums.screens.albumlist.AlbumListComponent
 import dagger.*
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -46,10 +44,9 @@ object AppModule {
     @Named(REPOSITORY_LOCAL_DATA_SOURCE)
     @Provides
     fun provideLocalDataSource(
-        database: MyDatabase,
-        ioDispatcher: CoroutineDispatcher
+        database: MyDatabase
     ): DataSource {
-        return LocalDataSource(database.dao(), ioDispatcher)
+        return LocalDataSource(database.dao())
     }
 
     @JvmStatic
@@ -59,11 +56,6 @@ object AppModule {
         return Room.databaseBuilder(context.applicationContext, MyDatabase::class.java, "Albums.db")
             .build()
     }
-
-    @JvmStatic
-    @Singleton
-    @Provides
-    fun provideIoDispatcher() = Dispatchers.IO
 }
 
 @Module
