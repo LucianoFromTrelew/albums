@@ -1,17 +1,17 @@
 package com.example.albums.di
 
-import com.example.albums.data.source.DataSource
-import com.example.albums.data.source.DefaultRepository
-import com.example.albums.data.source.REPOSITORY_REMOTE_DATA_SOURCE
-import com.example.albums.data.source.Repository
-import com.example.albums.data.source.remote.Api
+import android.content.Context
+import androidx.room.Room
+import com.example.albums.data.source.*
+import com.example.albums.data.source.local.LocalDataSource
+import com.example.albums.data.source.local.MyDatabase
+import com.example.albums.data.source.remote.MyApi
 import com.example.albums.data.source.remote.RemoteDataSource
 import com.example.albums.screens.albumdetail.AlbumDetailComponent
 import com.example.albums.screens.albumlist.AlbumListComponent
-import dagger.Binds
-import dagger.Component
-import dagger.Module
-import dagger.Provides
+import dagger.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -21,7 +21,7 @@ import javax.inject.Singleton
 interface AppComponent {
     @Component.Factory
     interface Factory {
-        fun create(): AppComponent
+        fun create(@BindsInstance applicationContext: Context): AppComponent
 
     }
 
@@ -37,9 +37,33 @@ object AppModule {
     @Singleton
     @Named(REPOSITORY_REMOTE_DATA_SOURCE)
     @Provides
-    fun provideRemoteDataSource(api: Api): DataSource {
+    fun provideRemoteDataSource(api: MyApi): DataSource {
         return RemoteDataSource(api)
     }
+
+    @JvmStatic
+    @Singleton
+    @Named(REPOSITORY_LOCAL_DATA_SOURCE)
+    @Provides
+    fun provideLocalDataSource(
+        database: MyDatabase,
+        ioDispatcher: CoroutineDispatcher
+    ): DataSource {
+        return LocalDataSource(database.dao(), ioDispatcher)
+    }
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideDatabase(context: Context): MyDatabase {
+        return Room.databaseBuilder(context.applicationContext, MyDatabase::class.java, "Albums.db")
+            .build()
+    }
+
+    @JvmStatic
+    @Singleton
+    @Provides
+    fun provideIoDispatcher() = Dispatchers.IO
 }
 
 @Module

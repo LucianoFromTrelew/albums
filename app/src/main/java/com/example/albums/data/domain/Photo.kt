@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Photo(
     override val id: String,
+    val albumId: String,
     val title: String,
     val url: String,
     val thumbnailUrl: String

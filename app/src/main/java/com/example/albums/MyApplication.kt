@@ -1,6 +1,5 @@
 package com.example.albums
 
-import android.app.AppComponentFactory
 import android.app.Application
 import com.example.albums.di.AppComponent
 import com.example.albums.di.DaggerAppComponent
@@ -12,6 +11,6 @@ open class MyApplication : Application() {
     }
 
     open fun initializeComponent(): AppComponent {
-        return DaggerAppComponent.factory().create()
+        return DaggerAppComponent.factory().create(applicationContext)
     }
 }

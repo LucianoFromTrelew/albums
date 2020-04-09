@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-interface Api {
+interface MyApi {
     @GET("albums")
     fun getAlbums(): Deferred<List<Album>>
     @GET("photos")

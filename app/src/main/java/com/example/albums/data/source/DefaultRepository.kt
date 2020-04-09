@@ -12,11 +12,18 @@ const val REPOSITORY_REMOTE_DATA_SOURCE = "Repository_RemoteDataSource"
 const val REPOSITORY_LOCAL_DATA_SOURCE = "Repository_LocalDataSource"
 
 class DefaultRepository @Inject constructor(
-    @Named(REPOSITORY_REMOTE_DATA_SOURCE) private val remoteDataSource: DataSource
+    @Named(REPOSITORY_REMOTE_DATA_SOURCE) private val remoteDataSource: DataSource,
+    @Named(REPOSITORY_LOCAL_DATA_SOURCE) private val localDataSource: DataSource
 ) : Repository {
     override suspend fun getAlbums(shouldFetch: Boolean): Result<List<Album>> {
         return try {
-            Success(remoteDataSource.getAlbums())
+            val localAlbums = localDataSource.getAlbums()
+            if (localAlbums.isEmpty() || shouldFetch) {
+                val remoteAlbums = remoteDataSource.getAlbums()
+                localDataSource.insertAlbums(remoteAlbums)
+                return Success(remoteAlbums)
+            }
+            Success(localAlbums)
         } catch (e: Exception) {
             Error(e)
         }
@@ -24,7 +31,13 @@ class DefaultRepository @Inject constructor(
 
     override suspend fun getPhotos(albumId: String, shouldFetch: Boolean): Result<List<Photo>> {
         return try {
-            Success(remoteDataSource.getPhotos(albumId))
+            val localPhotos = localDataSource.getPhotos(albumId)
+            if (localPhotos.isEmpty() || shouldFetch) {
+                val remotePhotos = remoteDataSource.getPhotos(albumId)
+                localDataSource.insertPhotos(remotePhotos)
+                return Success(remotePhotos)
+            }
+            Success(localPhotos)
         } catch (e: Exception) {
             Error(e)
         }

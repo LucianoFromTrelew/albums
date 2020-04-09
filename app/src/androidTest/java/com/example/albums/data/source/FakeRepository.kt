@@ -27,6 +27,7 @@ class FakeRepository @Inject constructor() : Repository {
                 Photo(
                     "$it",
                     "",
+                    "",
                     "https://via.placeholder.com/150/65ad4f",
                     "https://via.placeholder.com/150/65ad4f"
                 )
