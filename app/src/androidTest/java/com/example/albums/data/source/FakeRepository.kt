@@ -24,7 +24,12 @@ class FakeRepository @Inject constructor() : Repository {
         val data = mutableListOf<Photo>()
         repeat(100) {
             data.add(
-                Photo("$it", "", "", "")
+                Photo(
+                    "$it",
+                    "",
+                    "https://via.placeholder.com/150/65ad4f",
+                    "https://via.placeholder.com/150/65ad4f"
+                )
             )
         }
         return Success(data)

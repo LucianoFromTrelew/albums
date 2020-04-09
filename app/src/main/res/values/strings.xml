@@ -7,4 +7,5 @@
     <string name="photo_list_item_image_content_description">Album photo</string>
     <string name="photo_detail_title">Photo detail</string>
     <string name="photo_detail_image_content_description">Selected photo of an album</string>
+    <string name="status_image_content_description">Status image for loading data</string>
 </resources>

@@ -90,6 +90,10 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
 
+    // Picasso
+    def picasso_version = "2.71828"
+    implementation "com.squareup.picasso:picasso:$picasso_version"
+
     // Unit tests
     testImplementation 'junit:junit:4.12'
     testImplementation "org.hamcrest:hamcrest-all:1.3"

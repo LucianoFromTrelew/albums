@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/photo_detail_image_content_description"
             android:padding="8dp"
+            app:imageUrl="@{photo.url}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

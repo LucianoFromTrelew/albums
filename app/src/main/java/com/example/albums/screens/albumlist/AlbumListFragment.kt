@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import com.example.albums.DataBindingAdapter
+import com.example.albums.screens.DataBindingAdapter
 import com.example.albums.data.domain.Album
 import com.example.albums.databinding.AlbumListItemBinding
 import com.example.albums.databinding.FragmentAlbumListBinding
@@ -52,6 +52,8 @@ class AlbumListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentAlbumListBinding.inflate(inflater)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.albumListList.adapter = adapter
 

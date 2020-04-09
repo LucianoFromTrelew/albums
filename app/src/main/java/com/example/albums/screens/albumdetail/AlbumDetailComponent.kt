@@ -1,6 +1,7 @@
 package com.example.albums.screens.albumdetail
 
 import androidx.lifecycle.ViewModel
+import com.example.albums.data.domain.Album
 import com.example.albums.di.ViewModelKey
 import dagger.Binds
 import dagger.BindsInstance
@@ -14,7 +15,7 @@ interface AlbumDetailComponent {
 
     @Subcomponent.Factory
     interface Factory {
-        fun create(@BindsInstance @Named(ALBUM_DETAIL_VIEW_MODEL_ALBUM_ID) albumId: String): AlbumDetailComponent
+        fun create(@BindsInstance @Named(ALBUM_DETAIL_VIEW_MODEL_ALBUM) album: Album): AlbumDetailComponent
     }
 
     fun inject(fragment: AlbumDetailFragment)
