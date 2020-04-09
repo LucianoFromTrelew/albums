@@ -2,17 +2,19 @@ package com.example.albums.screens.albumdetail
 
 import androidx.lifecycle.*
 import com.example.albums.data.Result
-import com.example.albums.data.Result.*
+import com.example.albums.data.Result.Loading
+import com.example.albums.data.Result.Success
 import com.example.albums.data.domain.Album
 import com.example.albums.data.domain.Photo
 import com.example.albums.data.source.Repository
-import com.example.albums.screens.albumlist.ApiStatus
 import com.example.albums.utils.MyEvent
+import com.example.albums.utils.mapResultToStatus
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
 
 const val ALBUM_DETAIL_VIEW_MODEL_ALBUM = "AlbumDetailViewModel_albumId"
+
 
 class AlbumDetailViewModel @Inject constructor(
     private val repository: Repository, @Named(
@@ -23,14 +25,7 @@ class AlbumDetailViewModel @Inject constructor(
     private val _photos = MutableLiveData<Result<List<Photo>>>()
     val photos = _photos.map { (it as? Success)?.data }
 
-    val status = _photos.map {
-        when (it) {
-            is Success<*> -> ApiStatus.DONE
-            is Loading -> ApiStatus.LOADING
-            is Error -> ApiStatus.ERROR
-        }
-
-    }
+    val status = _photos.mapResultToStatus()
 
     private val _navigateToSelectedPhoto = MutableLiveData<MyEvent<Photo>>()
     val navigateToSelectedPhoto: LiveData<MyEvent<Photo>>
@@ -48,3 +43,4 @@ class AlbumDetailViewModel @Inject constructor(
         _navigateToSelectedPhoto.value = MyEvent(photo)
     }
 }
+
