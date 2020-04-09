@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="album"
-            type="com.example.albums.data.domain.Album" />
+            name="viewModel"
+            type="com.example.albums.screens.albumdetail.AlbumDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/album_detail_title"
             style="@style/title_style"
-            android:text="@{album.title}"
+            android:text="@{viewModel.album.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,6 +38,17 @@
             app:spanCount="3"
             tools:itemCount="16"
             tools:listitem="@layout/photo_list_item" />
+
+        <ImageView
+            android:id="@+id/album_detail_status_image"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/status_image_content_description"
+            app:apiStatus="@{viewModel.status}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

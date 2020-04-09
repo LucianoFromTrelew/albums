@@ -47,7 +47,7 @@ class AlbumDetailFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        appComponent.albumDetailComponent().create(args.selectedAlbum.id).inject(this)
+        appComponent.albumDetailComponent().create(args.selectedAlbum).inject(this)
     }
 
     override fun onCreateView(
@@ -55,12 +55,15 @@ class AlbumDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentAlbumDetailBinding.inflate(inflater)
-        binding.album = args.selectedAlbum
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.albumDetailPhotoList.adapter = adapter
 
-        viewModel.photos.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        viewModel.photos.observe(viewLifecycleOwner) { photos ->
+            photos?.let {
+                adapter.submitList(it)
+            }
         }
         viewModel.navigateToSelectedPhoto.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let {

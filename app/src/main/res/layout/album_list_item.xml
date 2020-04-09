@@ -27,5 +27,7 @@
             android:padding="8dp"
             android:text="@{album.title}"
             tools:text="Album title" />
+
+
     </androidx.cardview.widget.CardView>
 </layout>

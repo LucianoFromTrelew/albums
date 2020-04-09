@@ -1,7 +1,8 @@
 package com.example.albums.data.source
 
 import com.example.albums.data.Result
-import com.example.albums.data.Result.*
+import com.example.albums.data.Result.Error
+import com.example.albums.data.Result.Success
 import com.example.albums.data.domain.Album
 import com.example.albums.data.domain.Photo
 import javax.inject.Inject

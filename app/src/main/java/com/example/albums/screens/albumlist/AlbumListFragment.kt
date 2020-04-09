@@ -52,6 +52,8 @@ class AlbumListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentAlbumListBinding.inflate(inflater)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.albumListList.adapter = adapter
 
