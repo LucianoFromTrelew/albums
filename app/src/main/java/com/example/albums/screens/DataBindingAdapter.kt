@@ -1,4 +1,4 @@
-package com.example.albums
+package com.example.albums.screens
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -14,7 +14,9 @@ class DataBindingAdapter<I : DataBindingAdapter.HasId>(
     private val inflater: InflaterFunction,
     private val binder: ViewHolder.(I) -> Unit
 ) :
-    ListAdapter<I, DataBindingAdapter.ViewHolder>(DiffCallback()) {
+    ListAdapter<I, DataBindingAdapter.ViewHolder>(
+        DiffCallback()
+    ) {
 
     class DiffCallback<I : HasId> : DiffUtil.ItemCallback<I>() {
         override fun areItemsTheSame(oldItem: I, newItem: I): Boolean {
@@ -32,7 +34,10 @@ class DataBindingAdapter<I : DataBindingAdapter.HasId>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent, inflater)
+        return ViewHolder.from(
+            parent,
+            inflater
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -44,7 +49,9 @@ class DataBindingAdapter<I : DataBindingAdapter.HasId>(
             fun from(parent: ViewGroup, inflate: InflaterFunction): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
+                return ViewHolder(
+                    binding
+                )
             }
         }
     }
