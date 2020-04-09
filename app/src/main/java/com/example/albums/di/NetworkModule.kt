@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
-const val BASE_URL = "http://jsonplaceholder.typicode.com/"
+const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 @Module
 class NetworkModule {
 
@@ -18,6 +18,12 @@ class NetworkModule {
     @Provides
     fun provideMoshi(): Moshi {
         return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideCoroutineCallAdapterFactory(): CoroutineCallAdapterFactory {
+        return CoroutineCallAdapterFactory()
     }
 
     @Singleton

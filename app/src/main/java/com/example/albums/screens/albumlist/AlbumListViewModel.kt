@@ -2,7 +2,8 @@ package com.example.albums.screens.albumlist
 
 import androidx.lifecycle.*
 import com.example.albums.data.Result
-import com.example.albums.data.Result.*
+import com.example.albums.data.Result.Loading
+import com.example.albums.data.Result.Success
 import com.example.albums.data.domain.Album
 import com.example.albums.data.source.Repository
 import com.example.albums.utils.MyEvent
@@ -22,11 +23,7 @@ class AlbumListViewModel @Inject constructor(private val repository: Repository)
     init {
         _albums.value = Loading
         viewModelScope.launch {
-            try {
-                _albums.value = repository.getAlbums()
-            } catch (e: Exception) {
-                _albums.value = Error(e)
-            }
+            _albums.value = repository.getAlbums()
         }
     }
 
