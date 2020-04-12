@@ -17,9 +17,8 @@ const val ALBUM_DETAIL_VIEW_MODEL_ALBUM = "AlbumDetailViewModel_albumId"
 
 
 class AlbumDetailViewModel @Inject constructor(
-    private val repository: Repository, @Named(
-        ALBUM_DETAIL_VIEW_MODEL_ALBUM
-    ) val album: Album
+    private val repository: Repository,
+    @Named(ALBUM_DETAIL_VIEW_MODEL_ALBUM) val album: Album
 ) : ViewModel() {
 
     private val _photos = MutableLiveData<Result<List<Photo>>>()

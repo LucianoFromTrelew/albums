@@ -16,7 +16,7 @@ open class FakeTestRepository : Repository {
 
     override suspend fun getPhotos(albumId: String, shouldFetch: Boolean): Result<List<Photo>> {
         return if (shouldReturnError) Result.Error(Exception("Test exception"))
-        else Result.Success(photosServiceData.values.toList())
+        else Result.Success(photosServiceData.values.toList().filter { it.albumId == albumId })
     }
 
     fun addAlbums(vararg albums: Album) {
