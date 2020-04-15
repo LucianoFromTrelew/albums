@@ -14,3 +14,5 @@ This app uses the following libraries and technologies:
 - Dagger2 for Dependency Injection
 - JUnit4 and Mockito for testing
 - Picasso for image loading
+
+![Basic usage demo](./demo.gif)
