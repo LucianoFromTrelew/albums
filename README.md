@@ -15,8 +15,6 @@ This app uses the following libraries and technologies:
 - JUnit4 and Mockito for testing
 - Picasso for image loading
 
-<!--![Basic usage demo](./demo.gif)-->
-
 <p align="center">
   <img src="./demo.gif">
 </p>
